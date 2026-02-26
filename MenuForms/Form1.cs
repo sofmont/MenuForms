@@ -92,15 +92,18 @@ namespace MenuForms
                 // El Enrutador: ¿A qué pestaña mandamos este botón?
                 if (platillo.Categoria == "Comidas")
                 {
-                    tabControl1.Controls.Add(btnNuevo);
+                    // Lo mandamos al panel de comidas, NO al tabControl
+                    flpComidas.Controls.Add(btnNuevo);
                 }
                 else if (platillo.Categoria == "Bebidas")
                 {
-                    tabBebidas.Controls.Add(btnNuevo);
+                    // Lo mandamos al panel de bebidas
+                    flpBebidas.Controls.Add(btnNuevo);
                 }
                 else if (platillo.Categoria == "Postres")
                 {
-                    tabPostres.Controls.Add(btnNuevo);
+                    // Lo mandamos al panel de postres
+                    flpPostres.Controls.Add(btnNuevo);
                 }
         ;
             }
