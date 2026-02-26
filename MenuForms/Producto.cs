@@ -12,8 +12,10 @@ namespace MenuForms
         public string Nombre { get; set; }
         public string Categoria { get; set; }
         public decimal Precio { get; set; }
+        
+        public Producto() { }
    
-        public Producto(string nombre, string categoria, decimal precio, int stock)
+        public Producto(string nombre, decimal precio,string categoria)
         {
        
             Nombre = nombre;

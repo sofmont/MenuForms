@@ -12,6 +12,7 @@ namespace MenuForms
 {
     public partial class Form1 : Form
     {
+        List<Producto> PedidoActual = new List<Producto>();
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +24,89 @@ namespace MenuForms
         }
 
         private void flpComidas_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+            
+        }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void BotonPlatillo_Click(object sender, EventArgs e)
+        {
+            // 1. Sabemos qué botón presionaron
+            Button botonPresionado = (Button)sender;
+
+            // 2. Sacamos los datos del platillo
+            Producto platilloSeleccionado = (Producto)botonPresionado.Tag;
+
+            // 3. Lo metemos a la orden de la mesa
+            PedidoActual.Add(platilloSeleccionado);
+
+            // 4. Lo imprimimos en tu nuevo ListBox
+            lstCuenta.Items.Add($"- {platilloSeleccionado.Nombre} ... ${platilloSeleccionado.Precio}");
+
+            // 5. Calculamos el total básico (sin la clase DetalleOrden por ahora para que no te marque error)
+            decimal total = 0;
+            foreach (Producto item in PedidoActual)
+            {
+                // Asegúrate de que el Precio en tu clase Producto sea de tipo decimal
+                total += item.Precio;
+            }
+
+            lblTotal.Text = $"Total: ${total}";
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            List<Producto> Menu = new List<Producto>();
+
+            // 2. Agregamos los productos (Ojo a la letra 'm' en los precios)
+            Menu.Add(new Producto { Nombre = "Tacos de Bistec", Categoria = "Comidas", Precio = 90.00m });
+            Menu.Add(new Producto { Nombre = "Hamburguesa", Categoria = "Comidas", Precio = 120.00m });
+
+            Menu.Add(new Producto { Nombre = "Refresco", Precio = 25.00m, Categoria = "Bebidas" });
+            Menu.Add(new Producto { Nombre = "Cerveza", Precio = 45.00m, Categoria = "Bebidas" });
+
+            Menu.Add(new Producto { Nombre = "Flan Napolitano", Precio = 40.00m, Categoria = "Postres" });
+            Menu.Add(new Producto { Nombre = "Helado", Precio = 35.00m, Categoria = "Postres" });
+            foreach (Producto platillo in Menu)
+            {
+                Button btnNuevo = new Button();
+                btnNuevo.Text = $"{platillo.Nombre}\n${platillo.Precio}";
+                btnNuevo.Size = new Size(110, 80);
+                btnNuevo.BackColor = Color.LightSkyBlue;
+                btnNuevo.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+
+
+                btnNuevo.Tag = platillo;
+
+                // Le decimos qué va a pasar cuando le den clic
+                btnNuevo.Click += BotonPlatillo_Click;
+
+                // El Enrutador: ¿A qué pestaña mandamos este botón?
+                if (platillo.Categoria == "Comidas")
+                {
+                    tabControl1.Controls.Add(btnNuevo);
+                }
+                else if (platillo.Categoria == "Bebidas")
+                {
+                    tabBebidas.Controls.Add(btnNuevo);
+                }
+                else if (platillo.Categoria == "Postres")
+                {
+                    tabPostres.Controls.Add(btnNuevo);
+                }
+        ;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

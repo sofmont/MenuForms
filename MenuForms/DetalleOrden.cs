@@ -8,20 +8,51 @@ namespace MenuForms
 {
     internal class DetalleOrden
     {
-        public List<Producto> Productos { get; set; }
+        public List<Producto> Productos { get; set; }=new List<Producto>();
 
-        public DetalleOrden()
+        public DetalleOrden(List<Producto> PedidoCliente)
         {
-            Productos = new List<Producto>();
+            Productos = PedidoCliente;
+              
         }
-        public void AgregarProducto(Producto producto)
+        
+        public int CantidadArticulos
         {
-            Productos.Add(producto);
+            get { return Productos.Count; }
         }
 
-           public decimal CalcularTotal()
+        
+        public decimal CalcularTotalFinal()
+        {
+            decimal totalSuma = 0;
+            foreach (Producto item in Productos)
             {
-                return Productos.Sum(p => p.Precio);
+             
+                totalSuma += (decimal)item.Precio;
+            }
+            return totalSuma;
+        }
+
+       
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("=== RESTAURANTE ===");
+            sb.AppendLine("TICKET DE COMPRA");
+            sb.AppendLine("-------------------");
+
+            // Imprimimos la lista de todo lo que pidieron
+            foreach (Producto item in Productos)
+            {
+                sb.AppendLine(item.ToString());
+            }
+
+            sb.AppendLine("-------------------");
+            sb.AppendLine($"Artículos totales: {CantidadArticulos}");
+            sb.AppendLine($"TOTAL A PAGAR: ${CalcularTotalFinal()}");
+
+            return sb.ToString();
         }
 
 
