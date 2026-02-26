@@ -16,5 +16,15 @@ namespace MenuForms
         {
             InitializeComponent();
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void flpComidas_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
