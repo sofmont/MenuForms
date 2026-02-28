@@ -51,7 +51,7 @@ namespace MenuForms
             // 4. Lo imprimimos en tu nuevo ListBox
             lstCuenta.Items.Add($"- {platilloSeleccionado.Nombre} ... ${platilloSeleccionado.Precio}");
 
-            // 5. Calculamos el total básico (sin la clase DetalleOrden por ahora para que no te marque error)
+
             decimal total = 0;
             foreach (Producto item in PedidoActual)
             {
@@ -110,6 +110,35 @@ namespace MenuForms
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Vender_Click(object sender, EventArgs e)
+        {
+            
+            if (PedidoActual == null || PedidoActual.Count == 0)
+            {
+                MessageBox.Show("No hay productos en la orden.");
+                return;
+            }
+
+            decimal total = PedidoActual.Where(p => p != null).Sum(p => p.Precio);
+
+            MessageBox.Show($"¡Gracias por tu compra! Tu orden ha sido registrada.\nSu Total es: {total}");
+
+          
+            PedidoActual.Clear();
+            lstCuenta.Items.Clear();
+            lblTotal.Text = "Total: $0.00";
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
         {
 
         }
